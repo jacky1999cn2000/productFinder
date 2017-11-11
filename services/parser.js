@@ -23,14 +23,11 @@ module.exports = {
   /*
     parse product name from Detail page
   */
-  parseName: (rawHTML) => {
-    console.log('rawHTML ', rawHTML);
+  parseProductINFO: (rawHTML) => {
     let $ = cheerio.load(rawHTML);
 
     let name = $('#productTitle');
-    console.log('name ', name);
-    name = name.html();
-    console.log('name ', name);
+    name = _.trim(name.html());
 
     return name;
   }

@@ -19,7 +19,6 @@ module.exports = async (config) => {
   let productURLs = [];
 
   logger.log('get product URLs from page 1');
-
   let listPageHTML = await nightmare
     .goto(config.url)
     .wait('body')
@@ -42,31 +41,27 @@ module.exports = async (config) => {
     counter++;
   }
 
+  productURLs = _.slice(productURLs, 0, 5);
+  logger.log('productURLs' + productURLs.length);
+  logger.log('getting HTMLs from all productURLs, please wait');
 
-  await nightmare
-    .end();
+  let detailPageHTMLs = await productURLs.reduce((accumulator, url) => {
+    return accumulator.then((results) => {
+      return nightmare.goto('https://www.amazon.com' + url)
+        .wait('body')
+        .evaluate(() => {
+          return document.body.innerHTML;
+        })
+        .then((result) => {
+          results.push(result);
+          return results;
+        });
+    });
+  }, Promise.resolve([]));
 
-  // productURLs = parser.parseProductURLs(listPageHTML);
+  await nightmare.end();
 
-  // productURLs = _.slice(productURLs, 0, 5);
-  console.log('productURLs ', productURLs.length);
-
-
-  // let results = await productURLs.reduce(function(accumulator, url) {
-  //   return accumulator.then(function(results) {
-  //     return nightmare.goto('https://www.amazon.com' + url)
-  //       .wait('body')
-  //       .title()
-  //       .then(function(result) {
-  //         results.push(result);
-  //         return results;
-  //       });
-  //   });
-  // }, Promise.resolve([]));
-  //
-  // await nightmare.end();
-
-  //
-  // console.log(detailPageHTMLs);
+  let productINFOs = _.map(detailPageHTMLs, parser.parseProductINFO);
+  console.log('productINFOs ', productINFOs);
 
 }
