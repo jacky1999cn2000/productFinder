@@ -10,8 +10,6 @@ const nightmare = Nightmare({
   show: true
 });
 
-const header = ['NAME', 'ASIN', 'ABSR', 'PRICE', 'REVIEW', 'DIMENSION', 'WEIGHT'];
-
 module.exports = async (config) => {
   logger.log('start productFinder');
   logger.log('config', config);
@@ -27,26 +25,27 @@ module.exports = async (config) => {
     });
   productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
 
-  let counter = 2;
-  while (counter < 6) {
-    logger.log('get product URLs from page ' + counter);
-    let selector = '#zg_page' + counter + ' a';
-    listPageHTML = await nightmare
-      .click(selector)
-      .wait(config.waitTime)
-      .evaluate(() => {
-        return document.body.innerHTML;
-      });
-    productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
-    counter++;
-  }
+  // let counter = 2;
+  // while (counter < 6) {
+  //   logger.log('get product URLs from page ' + counter);
+  //   let selector = '#zg_page' + counter + ' a';
+  //   listPageHTML = await nightmare
+  //     .click(selector)
+  //     .wait(config.waitTime)
+  //     .evaluate(() => {
+  //       return document.body.innerHTML;
+  //     });
+  //   productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
+  //   counter++;
+  // }
 
-  productURLs = _.slice(productURLs, 0, 5);
-  logger.log('productURLs' + productURLs.length);
-  logger.log('getting HTMLs from all productURLs, please wait');
+  productURLs = _.slice(productURLs, 0, 3);
+  logger.log('productURLs', productURLs.length);
+  logger.log('retrieving HTMLs from all productURLs - it may take a long time, please be patient');
 
   let detailPageHTMLs = await productURLs.reduce((accumulator, url) => {
     return accumulator.then((results) => {
+      logger.log('retrieving HTML for URL', 'https://www.amazon.com' + url);
       return nightmare.goto('https://www.amazon.com' + url)
         .wait('body')
         .evaluate(() => {
@@ -61,7 +60,12 @@ module.exports = async (config) => {
 
   await nightmare.end();
 
-  let productINFOs = _.map(detailPageHTMLs, parser.parseProductINFO);
+  logger.log('parsing information for all products - it may take a long time, please be patient');
+
+  let productINFOs = [];
+  detailPageHTMLs.forEach((rawHTML, index) => {
+    productINFOs.push(parser.parseProductINFO(rawHTML, 'https://www.amazon.com' + productURLs[index]));
+  });
   console.log('productINFOs ', productINFOs);
 
 }
