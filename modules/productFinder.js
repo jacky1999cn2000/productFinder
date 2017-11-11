@@ -1,12 +1,11 @@
 'use strict';
 
-
-
-const retriever = require('../services/retriever');
+const _ = require('lodash');
 const parser = require('../services/parser');
 const logger = require('../services/logger');
 
 const Nightmare = require('nightmare');
+// const nightmare = Nightmare();
 const nightmare = Nightmare({
   show: true
 });
@@ -17,26 +16,57 @@ module.exports = async (config) => {
   logger.log('start productFinder');
   logger.log('config', config);
 
-  let listPageHTML = await retriever.getHTML(config.url + '#1');
-  let productURLs = parser.parseProductURLs(listPageHTML);
+  let productURLs = [];
 
-  let detailPageHTMLs = [];
+  logger.log('get product URLs from page 1');
 
-  productURLs.reduce(function(accumulator, url) {
-    return accumulator.then(function(results) {
-      return nightmare.goto('https://www.amazon.com' + url)
-        .wait('body')
-        .title()
-        .then(function(result) {
-          results.push(result);
-          return results;
-        });
+  let listPageHTML = await nightmare
+    .goto(config.url)
+    .wait('body')
+    .evaluate(() => {
+      return document.body.innerHTML;
     });
-  }, Promise.resolve([])).then(function(results) {
-    detailPageHTMLs = results;
+  productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
 
-  });
+  let counter = 2;
+  while (counter < 6) {
+    logger.log('get product URLs from page ' + counter);
+    let selector = '#zg_page' + counter + ' a';
+    listPageHTML = await nightmare
+      .click(selector)
+      .wait(config.waitTime)
+      .evaluate(() => {
+        return document.body.innerHTML;
+      });
+    productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
+    counter++;
+  }
 
-  console.log(detailPageHTMLs);
+
+  await nightmare
+    .end();
+
+  // productURLs = parser.parseProductURLs(listPageHTML);
+
+  // productURLs = _.slice(productURLs, 0, 5);
+  console.log('productURLs ', productURLs.length);
+
+
+  // let results = await productURLs.reduce(function(accumulator, url) {
+  //   return accumulator.then(function(results) {
+  //     return nightmare.goto('https://www.amazon.com' + url)
+  //       .wait('body')
+  //       .title()
+  //       .then(function(result) {
+  //         results.push(result);
+  //         return results;
+  //       });
+  //   });
+  // }, Promise.resolve([]));
+  //
+  // await nightmare.end();
+
+  //
+  // console.log(detailPageHTMLs);
 
 }

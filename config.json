@@ -4,5 +4,6 @@
   "minPRICE": 15.99,
   "maxPRICE": 40,
   "minABSR": 100,
-  "maxABSR": 3000
+  "maxABSR": 3000,
+  "waitTime": 2000
 }
