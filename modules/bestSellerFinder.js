@@ -14,7 +14,7 @@ const nightmare = Nightmare({
 
 module.exports = async (config) => {
 
-  logger.log('start productFinder');
+  logger.log('start finding best seller products');
   logger.log('config', config);
 
   let productURLs = [];

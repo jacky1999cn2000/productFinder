@@ -8,13 +8,29 @@ const subParser1 = require('./subParsers/subParser1');
 
 module.exports = {
   /*
-    parse product URLs from List page
+    parse product URLs from Best Seller's List page
   */
   parseBestSellerProductURLs: (rawHTML) => {
 
     let $ = cheerio.load(rawHTML);
 
     let productURLs = $('.zg_itemImmersion .zg_itemWrapper .p13n-asin > a[class=a-link-normal]');
+
+    productURLs = _.map(productURLs, (productURL) => {
+      return productURL.attribs.href;
+    });
+
+    return productURLs;
+  },
+
+  /*
+    parse product URLs from Generic Result's List page
+  */
+  parseGenericProductURLs: (rawHTML) => {
+
+    let $ = cheerio.load(rawHTML);
+
+    let productURLs = $('#s-results-list-atf > li > div > div:nth-child(3) > div:nth-child(1) > a');
 
     productURLs = _.map(productURLs, (productURL) => {
       return productURL.attribs.href;
