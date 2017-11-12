@@ -7,12 +7,12 @@
   "url": "https://www.amazon.com/Best-Sellers-Sports-Outdoors-Cycling-Accessories/zgbs/sporting-goods/3403211/ref=zg_bs_nav_sg_3_3403201",
 
   "filterPrice": true,
-  "minPRICE": 15.99,
+  "minPRICE": 5.99,
   "maxPRICE": 40,
   "removePriceNA": true,
 
   "filterABSR": true,
-  "minABSR": 100,
+  "minABSR": 10,
   "maxABSR": 3000,
   "removeABSRNA": true,
 

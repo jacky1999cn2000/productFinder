@@ -7,6 +7,7 @@ const bestSellerFinder = require('./modules/bestSellerFinder');
 const genericFinder = require('./modules/genericFinder');
 
 async function execute() {
+  // return;
   switch (config.findType) {
     case 'bestSeller':
       bestSellerFinder(config);
