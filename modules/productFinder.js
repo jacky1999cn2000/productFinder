@@ -12,7 +12,7 @@ const nightmare = Nightmare({
 });
 
 module.exports = async (config) => {
-  return;
+  // return;
   logger.log('start productFinder');
   logger.log('config', config);
 

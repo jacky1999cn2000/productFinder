@@ -1,5 +1,5 @@
 {
-  "url": "https://www.amazon.com/Best-Sellers-Sports-Outdoors-Camping-First-Aid-Kits/zgbs/sporting-goods/3401101/ref=zg_bs_nav_sg_5_3401091",
+  "url": "https://www.amazon.com/Best-Sellers-Baby-Child-Safety-Car-Seats-Accessories/zgbs/baby-products/166835011/ref=zg_bs_nav_ba_1_ba",
   "category": "First Aid Kits",
 
   "filterPrice": true,
@@ -14,16 +14,16 @@
 
   "filterWeight": true,
   "minWeight": 0,
-  "maxWeight": 8,
+  "maxWeight": 10,
   "weightUnit": "ounces",
   "removeWeightNA": true,
 
-  "filterStar": true,
+  "filterStar": false,
   "minStar": 3,
   "maxStar": 5,
   "removeStarNA": true,
 
-  "filterReview": true,
+  "filterReview": false,
   "minReview": 50,
   "maxReview": 300,
   "removeReviewNA": true,
