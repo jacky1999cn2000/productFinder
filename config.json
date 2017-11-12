@@ -28,11 +28,20 @@
   "maxReview": 200,
   "removeReviewNA": true,
 
-  "filterDimension": false,
-  "length": 0,
-  "width": 0,
-  "height": 0,
-  "removeDimensionNA": true,
+  "filterLength": false,
+  "minLength": 0,
+  "maxLength": 6,
+  "removeLengthNA": true,
+
+  "filterWidth": false,
+  "minWidth": 0,
+  "maxWidth": 4,
+  "removeWidthNA": true,
+
+  "filterHeight": false,
+  "minHeight": 0,
+  "maxHeight": 3,
+  "removeHeightNA": true,
 
   "waitTime": 2000
 }

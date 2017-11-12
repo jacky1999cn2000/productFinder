@@ -13,18 +13,24 @@ const self = module.exports = {
       const checkedWeight = self.checkWeight(productINFO, config);
       const checkedStar = self.checkStar(productINFO, config);
       const checkedReview = self.checkReview(productINFO, config);
+      const checkedLength = self.checkLength(productINFO, config);
+      const checkedWidth = self.checkWidth(productINFO, config);
+      const checkedHeight = self.checkHeight(productINFO, config);
 
-      console.log('productINFO ', productINFO);
-      console.log('\n');
-      console.log('checkedPrice ', checkedPrice);
-      console.log('checkedABSR ', checkedABSR);
-      console.log('checkedWeight ', checkedWeight);
-      console.log('checkedStar ', checkedStar);
-      console.log('checkedReview ', checkedReview);
-      console.log('\n');
-      console.log('\n');
+      // console.log('productINFO ', productINFO);
+      // console.log('\n');
+      // console.log('checkedPrice ', checkedPrice);
+      // console.log('checkedABSR ', checkedABSR);
+      // console.log('checkedWeight ', checkedWeight);
+      // console.log('checkedStar ', checkedStar);
+      // console.log('checkedReview ', checkedReview);
+      // console.log('checkedLength ', checkedLength);
+      // console.log('checkedWidth ', checkedWidth);
+      // console.log('checkedHeight ', checkedHeight);
+      // console.log('\n');
+      // console.log('\n');
 
-      return checkedPrice && checkedABSR && checkedWeight && checkedStar && checkedReview;
+      return checkedPrice && checkedABSR && checkedWeight && checkedStar && checkedReview && checkedLength && checkedWidth && checkedHeight;
     });
   },
 
@@ -88,7 +94,7 @@ const self = module.exports = {
   },
 
   /*
-    check ABSR
+    check Star
   */
   checkStar: (productINFO, config) => {
     if (config.filterStar) {
@@ -102,7 +108,7 @@ const self = module.exports = {
   },
 
   /*
-    check ABSR
+    check Review
   */
   checkReview: (productINFO, config) => {
     if (config.filterReview) {
@@ -110,6 +116,48 @@ const self = module.exports = {
         return !config.removeReviewNA;
       }
       return productINFO.REVIEW >= config.minReview && productINFO.REVIEW <= config.maxReview;
+    } else {
+      return true;
+    }
+  },
+
+  /*
+    check Length
+  */
+  checkLength: (productINFO, config) => {
+    if (config.filterLength) {
+      if (productINFO.LENGTH == 'n/a') {
+        return !config.removeLengthNA;
+      }
+      return productINFO.LENGTH >= config.minLength && productINFO.LENGTH <= config.maxLength;
+    } else {
+      return true;
+    }
+  },
+
+  /*
+    check Width
+  */
+  checkWidth: (productINFO, config) => {
+    if (config.filterWidth) {
+      if (productINFO.WIDTH == 'n/a') {
+        return !config.removeWidthNA;
+      }
+      return productINFO.WIDTH >= config.minWidth && productINFO.WIDTH <= config.maxWidth;
+    } else {
+      return true;
+    }
+  },
+
+  /*
+    check Height
+  */
+  checkHeight: (productINFO, config) => {
+    if (config.filterHeight) {
+      if (productINFO.HEIGHT == 'n/a') {
+        return !config.removeHeightNA;
+      }
+      return productINFO.HEIGHT >= config.minHeight && productINFO.HEIGHT <= config.maxHeight;
     } else {
       return true;
     }
