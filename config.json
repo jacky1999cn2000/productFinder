@@ -3,7 +3,7 @@
   "category": "First Aid Kits",
 
   "filterPrice": true,
-  "minPRICE": 9.99,
+  "minPRICE": 15.99,
   "maxPRICE": 40,
   "removePriceNA": true,
 
@@ -25,7 +25,7 @@
 
   "filterReview": true,
   "minReview": 50,
-  "maxReview": 200,
+  "maxReview": 300,
   "removeReviewNA": true,
 
   "filterLength": false,

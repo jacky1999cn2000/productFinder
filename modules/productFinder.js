@@ -12,7 +12,7 @@ const nightmare = Nightmare({
 });
 
 module.exports = async (config) => {
-  // return;
+  return;
   logger.log('start productFinder');
   logger.log('config', config);
 
@@ -27,21 +27,22 @@ module.exports = async (config) => {
     });
   productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
 
-  // let counter = 2;
-  // while (counter < 6) {
-  //   logger.log('get product URLs from page ' + counter);
-  //   let selector = '#zg_page' + counter + ' a';
-  //   listPageHTML = await nightmare
-  //     .click(selector)
-  //     .wait(config.waitTime)
-  //     .evaluate(() => {
-  //       return document.body.innerHTML;
-  //     });
-  //   productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
-  //   counter++;
-  // }
+  let counter = 2;
+  while (counter < 6) {
+    logger.log('get product URLs from page ' + counter);
+    let selector = '#zg_page' + counter + ' a';
+    listPageHTML = await nightmare
+      .click(selector)
+      .wait(config.waitTime)
+      .evaluate(() => {
+        return document.body.innerHTML;
+      });
+    productURLs = _.concat(productURLs, parser.parseProductURLs(listPageHTML));
+    counter++;
+  }
 
-  productURLs = _.slice(productURLs, 0, 3);
+  // productURLs = _.slice(productURLs, 0, 3);
+  // productURLs = ['/Waterproof-Container-Emergency-Mountaineering-Activities/dp/B075Y4HPS2/ref=zg_bs_3401101_79?_encoding=UTF8&refRID=77QQ6ET6RTHJXG3KR05Y'];
   logger.log('productURLs', productURLs.length);
   logger.log('retrieving HTMLs from all productURLs - it may take a long time, please be patient');
 
@@ -71,5 +72,5 @@ module.exports = async (config) => {
   // console.log('productINFOs ', productINFOs);
 
   const filteredProductINFOs = filter.filterProductINFOs(productINFOs, config);
-  console.log('filteredProductINFOs ', filteredProductINFOs);
+  console.log('filteredProductINFOs ', filteredProductINFOs.length);
 }
