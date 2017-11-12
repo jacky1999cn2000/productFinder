@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const parser = require('../services/parser');
 const logger = require('../services/logger');
+const filter = require('../services/filter');
 
 const Nightmare = require('nightmare');
 // const nightmare = Nightmare();
@@ -11,6 +12,7 @@ const nightmare = Nightmare({
 });
 
 module.exports = async (config) => {
+  // return;
   logger.log('start productFinder');
   logger.log('config', config);
 
@@ -66,6 +68,8 @@ module.exports = async (config) => {
   detailPageHTMLs.forEach((rawHTML, index) => {
     productINFOs.push(parser.parseProductINFO(rawHTML, 'https://www.amazon.com' + productURLs[index]));
   });
-  console.log('productINFOs ', productINFOs);
+  // console.log('productINFOs ', productINFOs);
 
+  const filteredProductINFOs = filter.filterProductINFOs(productINFOs, config);
+  console.log('filteredProductINFOs ', filteredProductINFOs);
 }

@@ -1,18 +1,38 @@
 {
   "url": "https://www.amazon.com/Best-Sellers-Sports-Outdoors-Camping-First-Aid-Kits/zgbs/sporting-goods/3401101/ref=zg_bs_nav_sg_5_3401091",
   "category": "First Aid Kits",
+
   "filterPrice": true,
-  "minPRICE": 15.99,
+  "minPRICE": 9.99,
   "maxPRICE": 40,
+  "removePriceNA": true,
+
   "filterABSR": true,
   "minABSR": 100,
   "maxABSR": 3000,
-  "filterWeight": false,
-  "maxWeight": 0,
+  "removeABSRNA": true,
+
+  "filterWeight": true,
+  "minWeight": 0,
+  "maxWeight": 8,
   "weightUnit": "ounces",
+  "removeWeightNA": true,
+
+  "filterStar": true,
+  "minStar": 3,
+  "maxStar": 5,
+  "removeStarNA": true,
+
+  "filterReview": true,
+  "minReview": 50,
+  "maxReview": 200,
+  "removeReviewNA": true,
+
   "filterDimension": false,
   "length": 0,
   "width": 0,
   "height": 0,
+  "removeDimensionNA": true,
+
   "waitTime": 2000
 }

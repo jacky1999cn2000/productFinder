@@ -48,15 +48,17 @@ module.exports = {
     let name = $('#productTitle');
     name = _.trim(name.html());
 
+    productINFO.NAME = name;
+    productINFO.URL = url;
+
     let price = $('#priceblock_ourprice').text();
     if (typeof price == 'undefined' || price == '') {
       price = $('#priceblock_saleprice').text();
     }
-    price = price.split('$')[1];
-
-    productINFO.NAME = name;
-    productINFO.URL = url;
-    productINFO.PRICE = price;
+    if (typeof price != 'undefined' || price != '') {
+      price = price.split('$')[1];
+      productINFO.PRICE = parseFloat(price.replace(/,/g, ''));
+    }
 
     $('#detail-bullets > table > tbody > tr > td > div.content > ul > li').each(function(i, elem) {
       let item = $(this).text();
@@ -70,23 +72,23 @@ module.exports = {
       if (item.indexOf('AmazonBestSellersRank') != -1) {
         item = item.split(':#')[1];
         item = item.split('in')[0];
-        productINFO.ABSR = item;
+        productINFO.ABSR = parseInt(item.replace(/,/g, ''));
       }
       if (item.indexOf('AverageCustomerReview') != -1) {
         item = item.split(':')[1];
         let star = item.split('outof')[0];
         let review = item.split('stars')[1].split('customerreviews')[0];
-        productINFO.STAR = star;
-        productINFO.REVIEW = review;
+        productINFO.STAR = parseFloat(star.replace(/,/g, ''));
+        productINFO.REVIEW = parseInt(review.replace(/,/g, ''));
       }
       if (item.indexOf('ProductDimensions') != -1) {
         item = item.split(':')[1].split('inches')[0];
         let dimension = item;
         let dimensions = item.split('x');
         productINFO.DIMENSION = dimension + ' inches';
-        productINFO.LENGTH = dimensions[0];
-        productINFO.WIDTH = dimensions[1];
-        productINFO.HEIGHT = dimensions[2];
+        productINFO.LENGTH = parseFloat(dimensions[0].replace(/,/g, ''));
+        productINFO.WIDTH = parseFloat(dimensions[1].replace(/,/g, ''));
+        productINFO.HEIGHT = parseFloat(dimensions[2].replace(/,/g, ''));
       }
       if (item.indexOf('ShippingWeight') != -1) {
         item = item.split(':')[1];
@@ -98,7 +100,7 @@ module.exports = {
           unit = 'ounces';
           weight = item.split('ounces')[0];
         }
-        productINFO.WEIGHT = weight;
+        productINFO.WEIGHT = parseFloat(weight.replace(/,/g, ''));
         productINFO.UNIT = unit;
       }
 
