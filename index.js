@@ -1,10 +1,22 @@
 'use strict';
 
-let config = require('./config.json');
-let productFinder = require('./modules/productFinder');
+const config = require('./config.json');
+const logger = require('./services/logger');
+
+const bestSellerFinder = require('./modules/bestSellerFinder');
+const genericFinder = require('./modules/genericFinder');
 
 async function execute() {
-  productFinder(config);
+  switch (config.findType) {
+    case 'bestSeller':
+      bestSellerFinder(config);
+      break;
+    case 'findAll':
+      genericFinder(config);
+      break;
+    default:
+      logger.log('Wrong findType');
+  }
 };
 
 execute();

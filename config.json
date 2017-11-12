@@ -1,6 +1,10 @@
 {
-  "url": "https://www.amazon.com/Best-Sellers-Baby-Child-Safety-Car-Seats-Accessories/zgbs/baby-products/166835011/ref=zg_bs_nav_ba_1_ba",
-  "category": "First Aid Kits",
+  "fileName": "First Aid Kits Best Seller",
+
+  "findType": "bestSeller",
+  "pageCount": 10,
+
+  "url": "https://www.amazon.com/Best-Sellers-Sports-Outdoors-Cycling-Accessories/zgbs/sporting-goods/3403211/ref=zg_bs_nav_sg_3_3403201",
 
   "filterPrice": true,
   "minPRICE": 15.99,
