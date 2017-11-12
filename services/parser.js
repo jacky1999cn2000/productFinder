@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 const logger = require('./logger');
 
 const subParser1 = require('./subParsers/subParser1');
+const subParser2 = require('./subParsers/subParser2');
 
 module.exports = {
   /*
@@ -78,7 +79,13 @@ module.exports = {
       productINFO.PRICE = parseFloat(price.replace(/,/g, ''));
     }
 
-    productINFO = subParser1.parseProductINFO(rawHTML, productINFO);
+    // decide which subparser to use
+
+    if ($('#detail-bullets > table > tbody > tr > td > div.content > ul > li').length > 0) {
+      productINFO = subParser1.parseProductINFO(rawHTML, productINFO);
+    } else if ($('#productDetails_detailBullets_sections1 > tbody > tr').length > 0) {
+      productINFO = subParser2.parseProductINFO(rawHTML, productINFO);
+    }
 
     return productINFO;
   }

@@ -15,13 +15,14 @@ const nightmare = Nightmare({
 module.exports = async (config) => {
 
   logger.log('start finding all products');
-  logger.log('config', config);
 
   let productURLs = [];
 
   let currentPage = config.startPage;
+  let counter = 1;
 
   logger.log('get product URLs from page', currentPage);
+
   let listPageHTML = await nightmare
     .goto(config.url)
     .wait('body')
@@ -30,29 +31,33 @@ module.exports = async (config) => {
     });
   productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
 
-  let counter = 1;
+  // while (counter < config.pageCount) {
+  //
+  //   logger.log('get product URLs from page', currentPage + counter);
+  //
+  //   let selector = '#pagnNextLink';
+  //   listPageHTML = await nightmare
+  //     .click(selector)
+  //     .wait(config.waitTime)
+  //     .evaluate(() => {
+  //       return document.body.innerHTML;
+  //     });
+  //   productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
+  //   counter++;
+  // }
 
-  while (counter < config.pageCount) {
-    logger.log('get product URLs from page', currentPage + counter);
-    let selector = '#pagnNextLink';
-    listPageHTML = await nightmare
-      .click(selector)
-      .wait(config.waitTime)
-      .evaluate(() => {
-        return document.body.innerHTML;
-      });
-    productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
-    counter++;
-  }
+  productURLs = _.slice(productURLs, 0, 1);
+  // productURLs = ['https://www.amazon.com/Waterproof-Container-Emergency-Mountaineering-Activities/dp/B075Y4HPS2/ref=zg_bs_3401101_79?_encoding=UTF8&refRID=77QQ6ET6RTHJXG3KR05Y'];
 
-  // productURLs = _.slice(productURLs, 0, 3);
-  // productURLs = ['/Waterproof-Container-Emergency-Mountaineering-Activities/dp/B075Y4HPS2/ref=zg_bs_3401101_79?_encoding=UTF8&refRID=77QQ6ET6RTHJXG3KR05Y'];
   logger.log('productURLs', productURLs.length);
+
   logger.log('retrieving HTMLs from all productURLs - it may take a long time, please be patient');
 
   let detailPageHTMLs = await productURLs.reduce((accumulator, url) => {
     return accumulator.then((results) => {
+
       logger.log('retrieving HTML for URL', url);
+
       return nightmare.goto(url)
         .wait('body')
         .evaluate(() => {
@@ -73,13 +78,16 @@ module.exports = async (config) => {
   detailPageHTMLs.forEach((rawHTML, index) => {
     productINFOs.push(parser.parseProductINFO(rawHTML, productURLs[index]));
   });
-  // console.log('productINFOs ', productINFOs);
 
   logger.log('filtering products');
 
   const filteredProductINFOs = filter.filterProductINFOs(productINFOs, config);
-  console.log('filteredProductINFOs ', filteredProductINFOs.length);
+
+  logger.log('filteredProductINFOs length', filteredProductINFOs.length);
 
   logger.log('writing products to csv');
+
   writer.write(filteredProductINFOs, config);
+
+  logger.log('finder successfully finished');
 }
