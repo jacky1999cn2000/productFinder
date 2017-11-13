@@ -8,7 +8,7 @@ module.exports = {
     console.log('\r');
     console.log('*** ' + header + ' ***');
 
-    if (content) {
+    if (typeof content != 'undefined') {
       console.log(content);
     }
   }

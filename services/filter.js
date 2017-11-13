@@ -30,21 +30,21 @@ const self = module.exports = {
       // console.log('\n');
       // console.log('\n');
 
-      let check = checkedPrice && checkedABSR && checkedWeight && checkedStar && checkedReview && checkedLength && checkedWidth && checkedHeight;
-      if (!check) {
-        console.log('productINFO ', productINFO);
-        console.log('\n');
-        console.log('checkedPrice ', checkedPrice);
-        console.log('checkedABSR ', checkedABSR);
-        console.log('checkedWeight ', checkedWeight);
-        console.log('checkedStar ', checkedStar);
-        console.log('checkedReview ', checkedReview);
-        console.log('checkedLength ', checkedLength);
-        console.log('checkedWidth ', checkedWidth);
-        console.log('checkedHeight ', checkedHeight);
-        console.log('\n');
-        console.log('\n');
-      }
+      // let check = checkedPrice && checkedABSR && checkedWeight && checkedStar && checkedReview && checkedLength && checkedWidth && checkedHeight;
+      // if (!check) {
+      //   console.log('productINFO ', productINFO);
+      //   console.log('\n');
+      //   console.log('checkedPrice ', checkedPrice);
+      //   console.log('checkedABSR ', checkedABSR);
+      //   console.log('checkedWeight ', checkedWeight);
+      //   console.log('checkedStar ', checkedStar);
+      //   console.log('checkedReview ', checkedReview);
+      //   console.log('checkedLength ', checkedLength);
+      //   console.log('checkedWidth ', checkedWidth);
+      //   console.log('checkedHeight ', checkedHeight);
+      //   console.log('\n');
+      //   console.log('\n');
+      // }
 
       return checkedPrice && checkedABSR && checkedWeight && checkedStar && checkedReview && checkedLength && checkedWidth && checkedHeight;
     });

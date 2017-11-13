@@ -12,10 +12,10 @@ module.exports = {
 
     let $ = cheerio.load(rawHTML);
 
-    $('#productDetails_detailBullets_sections1 > tbody > tr').each(function(i, elem) {
+    $('#prodDetails > div.wrapper.USlocale > div.column.col2 > div:nth-child(1) > div.content.pdClearfix > div > div > table > tbody > tr').each(function(i, elem) {
 
-      let header = $(this).find('th').text();
-      let item = $(this).find('td').text();
+      let header = $(this).find('td:nth-child(1)').text();
+      let item = $(this).find('td:nth-child(2)').text();
 
       if ((typeof header == 'string' && header != '') || (typeof item == 'string' && item != '')) {
         header = header.replace(/\r?\n|\r/g, '');

@@ -31,23 +31,23 @@ module.exports = async (config) => {
     });
   productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
 
-  // while (counter < config.pageCount) {
-  //
-  //   logger.log('get product URLs from page', currentPage + counter);
-  //
-  //   let selector = '#pagnNextLink';
-  //   listPageHTML = await nightmare
-  //     .click(selector)
-  //     .wait(config.waitTime)
-  //     .evaluate(() => {
-  //       return document.body.innerHTML;
-  //     });
-  //   productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
-  //   counter++;
-  // }
+  while (counter < config.pageCount) {
 
-  productURLs = _.slice(productURLs, 0, 1);
-  // productURLs = ['https://www.amazon.com/Waterproof-Container-Emergency-Mountaineering-Activities/dp/B075Y4HPS2/ref=zg_bs_3401101_79?_encoding=UTF8&refRID=77QQ6ET6RTHJXG3KR05Y'];
+    logger.log('get product URLs from page', currentPage + counter);
+
+    let selector = '#pagnNextLink';
+    listPageHTML = await nightmare
+      .click(selector)
+      .wait(config.waitTime)
+      .evaluate(() => {
+        return document.body.innerHTML;
+      });
+    productURLs = _.concat(productURLs, parser.parseGenericProductURLs(listPageHTML));
+    counter++;
+  }
+
+  // productURLs = _.slice(productURLs, 0, 1);
+  // productURLs = ['https://www.amazon.com/Summer-Infant-Contoured-Changing-Pad/dp/B009EDSWJA/ref=zg_bs_baby-products_2?_encoding=UTF8&psc=1&refRID=R0QDV3F4N2Z5F12J5SCE'];
 
   logger.log('productURLs', productURLs.length);
 
