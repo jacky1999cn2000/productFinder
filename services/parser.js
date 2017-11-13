@@ -81,15 +81,11 @@ module.exports = {
     }
 
     // decide which subparser to use
-    console.log('number ', $('#prodDetails > div.wrapper.USlocale > div.column.col2 > div:nth-child(1) > div.content.pdClearfix > div > div > table > tbody > tr').length);
     if ($('#detail-bullets > table > tbody > tr > td > div.content > ul > li').length > 0) {
-      console.log('use parser 1');
       productINFO = subParser1.parseProductINFO(rawHTML, productINFO);
     } else if ($('#productDetails_detailBullets_sections1 > tbody > tr').length > 0) {
-      console.log('use parser 2');
       productINFO = subParser2.parseProductINFO(rawHTML, productINFO);
     } else if ($('#prodDetails > div.wrapper.USlocale > div.column.col2 > div:nth-child(1) > div.content.pdClearfix > div > div > table > tbody > tr').length > 0) {
-      console.log('use parser 3');
       productINFO = subParser3.parseProductINFO(rawHTML, productINFO);
     }
 
