@@ -2,10 +2,10 @@
   "fileName": "First Aid Kits Best Seller",
 
   "findType": "findAll",
-  "startPage": 1,
-  "pageCount": 3,
+  "startPage": 6,
+  "pageCount": 20,
 
-  "url": "https://www.amazon.com/s/ref=sr_st_featured-rank?rh=n%3A172282%2Cn%3A!493964%2Cn%3A172541%2Cn%3A12097478011&qid=1510526205&sort=featured-rank",
+  "url": "https://www.amazon.com/s/ref=sr_pg_5?rh=n%3A172282%2Cn%3A%21493964%2Cn%3A172541%2Cn%3A12097478011&page=6&sort=featured-rank&ie=UTF8&qid=1510527053",
 
   "filterPrice": true,
   "minPRICE": 5.99,

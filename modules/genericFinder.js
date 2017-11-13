@@ -7,10 +7,10 @@ const filter = require('../services/filter');
 const writer = require('../services/writer');
 
 const Nightmare = require('nightmare');
-// const nightmare = Nightmare();
-const nightmare = Nightmare({
-  show: true
-});
+const nightmare = Nightmare();
+// const nightmare = Nightmare({
+//   show: true
+// });
 
 module.exports = async (config) => {
 
