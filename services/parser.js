@@ -87,6 +87,8 @@ module.exports = {
       productINFO = subParser2.parseProductINFO(rawHTML, productINFO);
     } else if ($('#prodDetails > div.wrapper.USlocale > div.column.col2 > div:nth-child(1) > div.content.pdClearfix > div > div > table > tbody > tr').length > 0) {
       productINFO = subParser3.parseProductINFO(rawHTML, productINFO);
+    } else {
+      console.error('unknown template ' + url);
     }
 
     return productINFO;
