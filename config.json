@@ -1,29 +1,27 @@
 {
-  "fileName": "Collars:BestSeller",
+  "fileName": "First Aid Kits Best Seller",
 
-  "findType": "bestSeller",
-  "selector": "#zg_browseRoot > ul > ul > ul > ul > ul",
-  "subCategories": 2,
+  "findType": "findAll",
   "startPage": 6,
   "pageCount": 20,
 
-  "url": "https://www.amazon.com/Best-Sellers-Pet-Supplies-Dog-Collars/zgbs/pet-supplies/3052410011/ref=zg_bs_nav_petsupplies_3_2975339011",
+  "url": "https://www.amazon.com/s/ref=sr_pg_5?rh=n%3A172282%2Cn%3A%21493964%2Cn%3A172541%2Cn%3A12097478011&page=6&sort=featured-rank&ie=UTF8&qid=1510527053",
 
   "filterPrice": true,
-  "minPRICE": 15.99,
-  "maxPRICE": 60,
-  "removePriceNA": false,
+  "minPRICE": 5.99,
+  "maxPRICE": 40,
+  "removePriceNA": true,
 
   "filterABSR": true,
-  "minABSR": 100,
-  "maxABSR": 8000,
-  "removeABSRNA": false,
+  "minABSR": 10,
+  "maxABSR": 3000,
+  "removeABSRNA": true,
 
   "filterWeight": true,
   "minWeight": 0,
   "maxWeight": 10,
   "weightUnit": "ounces",
-  "removeWeightNA": false,
+  "removeWeightNA": true,
 
   "filterStar": false,
   "minStar": 3,

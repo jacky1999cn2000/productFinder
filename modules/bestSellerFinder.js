@@ -17,13 +17,18 @@ module.exports = async (config) => {
   logger.log('start finding best seller products');
 
   let productURLs = [];
-  let listPageHTML;
 
-  await nightmare.goto(config.url).wait('body');
+  logger.log('get product URLs from page 1');
 
-  logger.log('Parent Category');
+  let listPageHTML = await nightmare
+    .goto(config.url)
+    .wait('body')
+    .evaluate(() => {
+      return document.body.innerHTML;
+    });
+  productURLs = _.concat(productURLs, parser.parseBestSellerProductURLs(listPageHTML));
 
-  let counter = 1;
+  let counter = 2;
   while (counter < 6) {
 
     logger.log('get product URLs from page ' + counter);
@@ -37,35 +42,6 @@ module.exports = async (config) => {
       });
     productURLs = _.concat(productURLs, parser.parseBestSellerProductURLs(listPageHTML));
     counter++;
-  }
-
-  let subCategory = 1;
-
-  while (subCategory <= config.subCategories) {
-
-    logger.log('Sub Category', subCategory);
-
-    let subCategorySelector = config.selector + ' > li:nth-child(' + subCategory + ') > a';
-
-    await nightmare.click(subCategorySelector).wait(config.waitTime);
-
-    counter = 1;
-    while (counter < 6) {
-
-      logger.log('get product URLs from page ' + counter);
-
-      let selector = '#zg_page' + counter + ' a';
-      listPageHTML = await nightmare
-        .click(selector)
-        .wait(config.waitTime)
-        .evaluate(() => {
-          return document.body.innerHTML;
-        });
-      productURLs = _.concat(productURLs, parser.parseBestSellerProductURLs(listPageHTML));
-      counter++;
-    }
-
-    subCategory++;
   }
 
   // productURLs = _.slice(productURLs, 0, 3);
