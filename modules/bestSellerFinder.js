@@ -7,10 +7,10 @@ const filter = require('../services/filter');
 const writer = require('../services/writer');
 
 const Nightmare = require('nightmare');
-const nightmare = Nightmare();
-// const nightmare = Nightmare({
-//   show: true
-// });
+// const nightmare = Nightmare();
+const nightmare = Nightmare({
+  show: true
+});
 
 module.exports = async (config) => {
 
@@ -57,7 +57,7 @@ module.exports = async (config) => {
       logger.log('retrieving HTML for URL', 'https://www.amazon.com' + url);
 
       return nightmare.goto('https://www.amazon.com' + url)
-        .wait('body')
+        .wait(config.waitTime)
         .evaluate(() => {
           return document.body.innerHTML;
         })
